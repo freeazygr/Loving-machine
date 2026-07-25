@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Анкета</title>
+  <link rel="stylesheet" href="хакатон.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: #ff6f6f;
+    }
+
+    form {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Контейнер для волны */
+    .wave-container {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 100%;
+      z-index: 5;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* SVG волна */
+    .wave-divider {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 100%;
+      min-height: 600px;
+    }
+
+    .love-card {
+      animation: float 3s ease-in-out infinite, fadeIn 1s ease-out;
+    }
+
+    .love-card span {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #4a90d9, #e84393);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 2px;
+      display: block;
+    }
+
+    .love-card .heart-icon {
+      font-size: 32px;
+      display: block;
+      margin-bottom: 5px;
+      -webkit-text-fill-color: initial;
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+
+    /* Левая половина */
+    .side-left {
+      flex: 1;
+      background: linear-gradient(135deg, #b8d8f8 0%, #8bb8e8 100%);
+      padding: 40px 60px 100px 60px;
+      display: flex;
+      justify-content: flex-start;
+      clip-path: polygon(0 0, calc(100% - 60px) 0, 100% 50%, calc(100% - 60px) 100%, 0 100%);
+    }
+
+    /* Правая половина */
+    .side-right {
+      flex: 1;
+      background: linear-gradient(135deg, #f7cce4 0%, #f0a8d0 100%);
+      padding: 40px 60px 100px 60px;
+      display: flex;
+      justify-content: flex-end;
+      clip-path: polygon(60px 0, 100% 0, 100% 100%, 60px 100%, 0 50%);
+    }
+
+    /* Колонки в левом и правом углах */
+    .column {
+      width: 300px;
+    }
+
+    .column-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid;
+    }
+
+    .partner1-title {
+      color: #0d38ad;
+      border-color: #3985db;
+    }
+
+    .partner2-title {
+      color: #9f0e4a;
+      border-color: #ed5cae;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #00204d;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px 0;
+      border: none;
+      border-bottom: 1px solid #cbd5e1;
+      background: transparent;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+      border-radius: 0;
+    }
+
+    select {
+      cursor: pointer;
+      color: #000000;
+    }
+
+    .side-left input:focus, .side-left select:focus {
+      border-bottom-color: #031a58;
+    }
+
+    .side-right input:focus, .side-right select:focus {
+      border-bottom-color: #be185d;
+    }
+
+    .placeholderw::placeholder {
+      color: rgb(163, 38, 140);
+    }
+
+    .placeholderm::placeholder {
+      color: rgb(18, 13, 177);
+    }
+
+    .table {
+      margin-top: 0;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Табличка по центру */
+    .info-card {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      pointer-events: none;
+      height: 150px;
+      width: 500px;
+    }
+
+    .info-card-inner {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 15px 20px;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .info-card-text {
+      font-size: 15px;
+      font-weight: 500;
+      background: linear-gradient(135deg, #4a90d9, #e84393);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Кнопка по центру */
+    .button-wrapper {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .submit-btn {
+      padding: 12px 40px;
+      background-color: #0f172a;
+      color: #ffffff;
+      border: none;
+      border-radius: 24px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .submit-btn:hover {
+      background-color: #1e293b;
+      transform: scale(1.03);
+    }
+
+    /* Анимации */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14% { transform: scale(1.2); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.15); }
+      70% { transform: scale(1); }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* Адаптив для мобильных устройств */
+    @media (max-width: 768px) {
+      .wave-container {
+        display: none;
+      }
+
+      form {
+        flex-direction: column;
+      }
+
+      .side-left, .side-right {
+        clip-path: none;
+        padding: 30px 20px;
+        justify-content: center;
+      }
+
+      .info-card {
+        position: static;
+        transform: none;
+        width: 100%;
+        height: auto;
+        padding: 20px;
+      }
+
+      .button-wrapper {
+        position: static;
+        transform: none;
+        text-align: center;
+        padding: 20px 0 40px 0;
+        background-color: #8e004e;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="card-container">
+      <div class="card"><!-- Мужчина (голубой) --></div>
+      <div class="card"><!-- Женщина (розовый) --></div>
+    </div>
+  </header>
+
+  <form action="/submit" method="post">
+
+    <!-- Левая половина (Партнер 1) -->
+    <div class="side-left">
+      <div class="column">
+        <div class="column-title partner1-title">ПАРТНЕР 1</div>
+
+        <div class="form-group">
+          <label for="gender_m">Пол</label>
+          <select id="gender_m" name="gender_1" required>
+            <option value="0" selected>Мужчина</option>
+            <option value="1">Женщина</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="income_m">Годовой доход $</label>
+          <input class="placeholderm" type="number" id="income_m" name="income_1" placeholder="100000" min="0" required>
+        </div>
+
+        <div class="form-group">
+          <label for="children_m">Количество детей</label>
+          <input class="placeholderm" type="number" id="children_m" name="children_1" placeholder="0" min="0" required>
+        </div>
+
+        <div class="form-group">
+          <label for="age_m">Возраст</label>
+          <input class="placeholderm" type="number" id="age_m" name="age_1" placeholder="25" min="18" max="100" required>
+        </div>
+
+        <div class="form-group">
+          <label for="attractiveness_m">Привлекательность (1-10)</label>
+          <input class="placeholderm" type="number" id="attractiveness_m" name="attractiveness_1" placeholder="7" min="1" max="10" required>
+        </div>
+      </div>
+    </div>
+
+    <!-- Правая половина (Партнер 2) -->
+    <div class="side-right">
+      <div class="column">
+        <div class="column-title partner2-title">ПАРТНЕР 2</div>
+
+        <div class="form-group">
+          <label for="gender_f">Пол</label>
+          <select id="gender_f" name="gender_2" required>
+            <option value="0">Мужчина</option>
+            <option value="1" selected>Женщина</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="income_f">Годовой доход $</label>
+          <input class="placeholderw" type="number" id="income_f" name="income_2" placeholder="90000" min="0" required>
+        </div>
+
+        <div class="form-group">
+          <label for="children_f">Количество детей</label>
+          <input class="placeholderw" type="number" id="children_f" name="children_2" placeholder="0" min="0" required>
+        </div>
+
+        <div class="form-group">
+          <label for="age_f">Возраст</label>
+          <input class="placeholderw" type="number" id="age_f" name="age_2" placeholder="23" min="18" max="100" required>
+        </div>
+
+        <div class="form-group">
+          <label for="attractiveness_f">Привлекательность (1-10)</label>
+          <input class="placeholderw" type="number" id="attractiveness_f" name="attractiveness_2" placeholder="8" min="1" max="10" required>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Информационная карточка по центру -->
+    <div class="info-card">
+      <div class="info-card-inner">
+        <div style="font-size: 20px; margin-bottom: 1px;">❤️</div>
+        <div class="info-card-text">
+          Пользователь заполняет две анкеты: для мужчины и женщины.
+          Дальше отвечает на 10 вопросов на тему отношений.
+          После отправки данных модель анализирует характеристики
+          пары и рассчитывает вероятность долгосрочных отношений.
+          Сервис отображает процент совместимости и прогноз
+          вероятности длительных отношений.
+        </div>
+      </div>
+    </div>
+
+    <!-- Кнопка по центру -->
+    <div class="button-wrapper">
+      <button type="submit" class="submit-btn">Сохранить</button>
+    </div>
+
+  </form>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Результат анализа</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #addaff 0%, #fec1e3 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .result-card {
+      background: #d0fcff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      max-width: 550px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 22px;
+      color: #1e293b;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .message-box {
+      background-color: #eadff7;
+      border: 2px dashed #3f3f3f;
+      padding: 25px 20px;
+      border-radius: 16px;
+      margin-bottom: 30px;
+    }
+
+    .message-text {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.4;
+    }
+
+    .details {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 30px;
+      padding: 15px;
+      background: #e1edf9;
+      border-radius: 12px;
+      font-size: 14px;
+      color: #000000;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 12px 32px;
+      background-color: #0f172a;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 24px;
+      font-size: 15px;
+      font-weight: 500;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .back-btn:hover {
+      background-color: #1e293b;
+      transform: scale(1.03);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="result-card">
+    <h1>Результат анализа совместимости</h1>
+
+    <div class="message-box">
+      <p class="message-text">{{ message }}</p>
+    </div>
+
+    <div class="details">
+      <div><strong>Партнёр 1:</strong> {{ partner1 }}</div>
+      <div><strong>Партнёр 2:</strong> {{ partner2 }}</div>
+    </div>
+
+    <a href="/" class="back-btn">Заполнить снова</a>
+  </div>
+
+</body>
+</html>

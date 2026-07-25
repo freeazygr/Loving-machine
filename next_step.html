@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Следующий шаг</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #a8d3ff 0%, #ffbee2 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .step-card {
+      background: #cffdfd;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(43, 0, 75, 0.08);
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 22px;
+      color: #1e293b;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    .step-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .action-btn {
+      width: 100%;
+      padding: 18px 24px;
+      border: 2px solid #e7e7e7;
+      border-radius: 14px;
+      background: hsl(270, 60%, 96%);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 15px;
+      font-weight: 500;
+      color: #000a20;
+      text-align: center;
+    }
+
+    .action-btn:hover {
+      border-color: #000000;
+      background: #eff6ff;
+      transform: translateY(-1px);
+    }
+
+    .action-btn.skip {
+      border-color: #e2e8f0;
+      color: #95accb;
+    }
+
+    .action-btn.skip:hover {
+      border-color: #003683;
+      background: #f8fafc;
+      color: #475569;
+    }
+
+    .action-btn .btn-title {
+      display: block;
+      font-size: 15px;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+
+    .action-btn .btn-desc {
+      display: block;
+      font-size: 13px;
+      color: #64748b;
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+
+  <form action="/next-step" method="post" class="step-card">
+
+    <h1>Партнёр {{ missing_partner }} ещё не прошёл тест</h1>
+    <p class="subtitle">Вы можете позвать его или пропустить этот шаг</p>
+
+    <input type="hidden" name="partner1" value="{{ partner1 }}">
+    <input type="hidden" name="partner2" value="{{ partner2 }}">
+    <input type="hidden" name="age_1" value="{{ age_1 }}">
+    <input type="hidden" name="age_2" value="{{ age_2 }}">
+    <input type="hidden" name="test_p1" value="{{ test_p1 }}">
+    <input type="hidden" name="test_p2" value="{{ test_p2 }}">
+    <input type="hidden" name="missing_partner" value="{{ missing_partner }}">
+
+    <div class="step-buttons">
+      <button type="submit" name="action" value="call" class="action-btn">
+        <span class="btn-title">Позвать Партнёра {{ missing_partner }}</span>
+        <span class="btn-desc">Он ответит на те же вопросы</span>
+      </button>
+
+      <button type="submit" name="action" value="skip" class="action-btn skip">
+        <span class="btn-title">Сейчас этого партнёра нету со мной</span>
+        <span class="btn-desc">Ему будет начислено +20 баллов</span>
+      </button>
+    </div>
+
+  </form>
+
+</body>
+</html>

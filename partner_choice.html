@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Выбор партнёра</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #b8daff 0%, #ffc3e4 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .choice-card {
+      background: #d0feff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 22px;
+      color: #1e293b;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    .partner-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .partner-btn {
+      flex: 1;
+      padding: 24px 16px;
+      border: 2px solid #d5fcff;
+      border-radius: 16px;
+      background: #f8faff;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .partner-btn:hover {
+      border-color: #1d4ed8;
+      background: #eff6ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(29, 78, 216, 0.1);
+    }
+
+    .partner-btn.p2:hover {
+      border-color: #be185d;
+      background: #fdf2f8;
+      box-shadow: 0 4px 12px rgba(190, 24, 93, 0.1);
+    }
+
+    .partner-icon {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+
+    .partner-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .partner-desc {
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <form action="/start-test" method="post" class="choice-card">
+
+    <h1>Кто сейчас проходит тест?</h1>
+    <p class="subtitle">Выберите, от лица какого партнёра будут ответы</p>
+
+    <input type="hidden" name="partner1" value="{{ partner1 }}">
+    <input type="hidden" name="partner2" value="{{ partner2 }}">
+    <input type="hidden" name="age_1" value="{{ age_1 }}">
+    <input type="hidden" name="age_2" value="{{ age_2 }}">
+
+    <div class="partner-buttons">
+      <button type="submit" name="current_partner" value="1" class="partner-btn">
+        <div class="partner-icon">👤</div>
+        <div class="partner-label">Партнёр 1</div>
+        <div class="partner-desc">Пройти тест первым</div>
+      </button>
+
+      <button type="submit" name="current_partner" value="2" class="partner-btn p2">
+        <div class="partner-icon">👤</div>
+        <div class="partner-label">Партнёр 2</div>
+        <div class="partner-desc">Пройти тест первым</div>
+      </button>
+    </div>
+
+  </form>
+
+</body>
+</html>
